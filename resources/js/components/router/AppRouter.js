@@ -1,11 +1,12 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import Home from "../pages/Home";
 import Posts from "../pages/Posts";
 import Contact from "../pages/Contact";
 import About from "../pages/About";
+import Route from "./Route";
 
-function AppRouter() {
+function AppRouter({ match }) {
     return (
         <Switch>
             <Route exact path="/" component={Home} />
