@@ -6,6 +6,15 @@ import {
 import Axios from "axios";
 import { VALIDATION_FAILED } from "../../action-types";
 
+/**
+ * Make a login request and retrieve the JWT token
+ * so we can authenticate the user from our react
+ * app.
+ *
+ * @param {string} email
+ * @param {string} password
+ * @returns {Promise<boolean>}
+ */
 export const login = (email, password) => async dispatch => {
     try {
         const response = await Axios.post("/api/admin/login", {
@@ -20,8 +29,6 @@ export const login = (email, password) => async dispatch => {
 
         return true;
     } catch (err) {
-        console.error(err.response);
-
         if (err.response !== undefined) {
             const res = err.response;
 
@@ -46,9 +53,14 @@ export const login = (email, password) => async dispatch => {
     }
 };
 
+/**
+ * Logout the user from the application.
+ *
+ * @returns {Promise<boolean>}
+ */
 export const logout = () => async dispatch => {
     try {
-        const response = await Axios.post("/api/admin/logout");
+        await Axios.post("/api/admin/logout");
 
         dispatch({
             type: LOGOUT_SUCCESS
@@ -56,7 +68,15 @@ export const logout = () => async dispatch => {
 
         return true;
     } catch (err) {
-        console.log(err);
+        //token was expired so we still want to log the
+        //user out.
+        if (err.response && err.response.status == 401) {
+            dispatch({
+                type: LOGOUT_SUCCESS
+            });
+            return true;
+        }
+
         return false;
     }
 };
