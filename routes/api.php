@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/admin/login', 'Admin\\Auth\\LoginController@login');
+Route::namespace('Admin')->prefix('/admin')->group(function () {
+    Route::namespace('Auth')->group(function () {
+        Route::post('/login', 'LoginController@login');
+        Route::post('/logout', 'LoginController@logout');
+    });
 
-Route::post('/admin/logout', 'Admin\\Auth\\LoginController@logout');
+    Route::apiResource('/groups', 'GroupController');
+});
