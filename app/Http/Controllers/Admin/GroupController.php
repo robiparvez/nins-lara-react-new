@@ -3,19 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Group;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class GroupController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display all groups with pagination.
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $groups = Group::all();
+        $groups = Group::orderBy('created_at', 'desc')
+            ->where('name', '<>', 'Super Admin')
+            ->paginate($request->input('per_page', 12));
 
         return response()->json([
             'groups' => $groups,
@@ -23,7 +26,7 @@ class GroupController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new group to the database.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -43,14 +46,16 @@ class GroupController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified group.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $group = Group::findOrFail($id);
+        $group = Group::where('name', '<>', 'Super Admin')
+            ->where('id', $id)
+            ->firstOrFail();
 
         return response()->json([
             'group' => $group,
@@ -58,10 +63,10 @@ class GroupController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified group in the database.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request  $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -79,19 +84,6 @@ class GroupController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    /**
-     * Validate create or update group request.
-     *
      * @param \Illuminate\Http\Request $request
      * @param integer|null $id
      * @return void
@@ -105,7 +97,8 @@ class GroupController extends Controller
                 'min:3',
                 'max:190',
                 'unique:groups,name' . ($id ? ",{$id}" : ''),
-            ]
+            ],
+            'description' => 'nullable|string|min:10|max:1000',
         ];
 
         $messages = [
@@ -116,8 +109,6 @@ class GroupController extends Controller
     }
 
     /**
-     * Create a new group or update an existing one.
-     *
      * @param \App\Group $group
      * @param \Illuminate\Http\Request $request
      * @return \App\Group

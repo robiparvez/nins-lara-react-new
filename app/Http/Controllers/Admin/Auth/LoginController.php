@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -15,7 +17,6 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:api')->only(['login']);
         $this->middleware('auth:api')->only(['logout']);
     }
 
@@ -35,9 +36,9 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (!$token = $this->guard()->attempt($credentials)) {
-            return response()->json([
-                'error' => 'Unauthorized'
-            ], 401);
+            throw ValidationException::withMessages([
+                'email' => ['These credentials do not match our records.'],
+            ]);
         }
 
         return response()->json([

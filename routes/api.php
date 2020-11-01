@@ -19,5 +19,9 @@ Route::namespace('Admin')->prefix('/admin')->group(function () {
         Route::post('/logout', 'LoginController@logout');
     });
 
-    Route::apiResource('/groups', 'GroupController');
+    Route::apiResource('/groups', 'GroupController')
+        ->except(['destroy']);
+
+    Route::get('/groups/{id}/permissions', 'PermissionController@index');
+    Route::put('/groups/{id}/permissions', 'PermissionController@assignPermissionsToGroup');
 });
