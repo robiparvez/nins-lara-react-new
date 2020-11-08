@@ -10,9 +10,9 @@ import {
 } from "@material-ui/core";
 import {
     Dashboard as DashboardIcon,
-    Category as CategoryIcon,
-    ListSharp as ListSharpIcon
+    People as PeopleIcon
 } from "@material-ui/icons";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -46,23 +46,17 @@ function Sidebar() {
             <Toolbar />
             <div className={classes.drawerContainer}>
                 <List className={classes.list}>
-                    <ListItem button>
+                    <ListItem button component={Link} to={"/admin/dashboard"}>
                         <ListItemIcon>
                             <DashboardIcon />
                         </ListItemIcon>
                         <ListItemText primary={"Dashboard"} />
                     </ListItem>
-                    <ListItem button>
+                    <ListItem button component={Link} to={"/admin/groups"}>
                         <ListItemIcon>
-                            <CategoryIcon />
+                            <PeopleIcon />
                         </ListItemIcon>
-                        <ListItemText primary={"Manage Categories"} />
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <ListSharpIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Manage Posts"} />
+                        <ListItemText primary={"Manage Groups"} />
                     </ListItem>
                 </List>
             </div>

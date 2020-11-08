@@ -7,10 +7,6 @@ import Axios from "axios";
 import { VALIDATION_FAILED } from "../../action-types";
 
 /**
- * Make a login request and retrieve the JWT token
- * so we can authenticate the user from our react
- * app.
- *
  * @param {string} email
  * @param {string} password
  * @returns {Promise<boolean>}
@@ -54,8 +50,6 @@ export const login = (email, password) => async dispatch => {
 };
 
 /**
- * Logout the user from the application.
- *
  * @returns {Promise<boolean>}
  */
 export const logout = () => async dispatch => {

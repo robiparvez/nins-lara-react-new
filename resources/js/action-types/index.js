@@ -1,1 +1,3 @@
 export const VALIDATION_FAILED = "VALIDATION_FAILED";
+
+export const TOAST_MESSAGE = "TOAST_MESSAGE";

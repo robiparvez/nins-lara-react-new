@@ -115,8 +115,9 @@ class GroupController extends Controller
      */
     private function createOrUpdateGroup(Group $group, Request $request)
     {
-        $group->name = $request->name;
-        $group->status = $request->filled('status') ? true : false;
+        $group->name        = $request->name;
+        $group->description = $request->description;
+        $group->status      = $request->filled('status') ? true : false;
         $group->save();
 
         return $group;
