@@ -12,14 +12,19 @@ import {
     Paper,
     IconButton,
     TablePagination,
-    Fab,
+    Fab
 } from "@material-ui/core";
-import { Edit as EditIcon, Add as AddIcon } from "@material-ui/icons";
+import {
+    Edit as EditIcon,
+    Add as AddIcon,
+    Group as GroupIcon
+} from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { getGroup, getGroups } from "../../../actions/admin/groupActions";
 import { getDefaultPerPage } from "../../../helpers";
 import CreateModal from "./components/CreateModal";
 import EditModal from "./components/EditModal";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
     heading: {
@@ -87,32 +92,40 @@ function Index() {
     };
 
     const openEditGroupModal = async (e, id) => {
-        console.log(id)
         e.preventDefault();
         const response = await dispatch(getGroup(id));
 
         if (response) {
             setToggleEditModal(true);
         }
-    }
+    };
 
     let rows = null;
 
     if (groups.length) {
         rows = groups.map(group => (
             <TableRow key={group.id}>
+                <TableCell>{group.id}</TableCell>
+                <TableCell>{group.name}</TableCell>
                 <TableCell>
-                    {group.id}
+                    {group.description
+                        ?.substr(0, 30)
+                        .trim()
+                        .concat("...")}
                 </TableCell>
                 <TableCell>
-                    {group.name}
-                </TableCell>
-                <TableCell>
-                    {group.description?.substr(0, 30).trim().concat('...')}
-                </TableCell>
-                <TableCell>
-                    <IconButton color="primary" onClick={e => openEditGroupModal(e, group.id)}>
+                    <IconButton
+                        color="primary"
+                        onClick={e => openEditGroupModal(e, group.id)}
+                    >
                         <EditIcon />
+                    </IconButton>
+                    <IconButton
+                        color="primary"
+                        component={Link}
+                        to={`/admin/groups/${group.id}/permissions`}
+                    >
+                        <GroupIcon />
                     </IconButton>
                 </TableCell>
             </TableRow>
