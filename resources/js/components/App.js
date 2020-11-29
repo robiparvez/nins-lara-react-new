@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import store from "../store";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import Router from "./router/Router";
+import ToastMessage from "./includes/ToastMessage";
 
 const theme = createMuiTheme({
     typography: {
@@ -16,6 +17,7 @@ function App() {
     return (
         <MuiThemeProvider theme={theme}>
             <Provider store={store}>
+                <ToastMessage />
                 <BrowserRouter>
                     <Router />
                 </BrowserRouter>
