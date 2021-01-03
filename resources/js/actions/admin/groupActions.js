@@ -6,6 +6,7 @@ import {
     GET_GROUPS,
     UPDATE_GROUP
 } from "../../action-types/admin/groupTypes";
+import { showToastMessage } from "../toastMessageActions";
 
 /**
  * @param {number} perPage 
@@ -58,7 +59,7 @@ export const getGroup = (id) => async dispatch => {
                 name: group.name || null,
                 description: group.description || null
             }
-        })
+        });
 
         return true;
     } catch (err) {
@@ -84,6 +85,8 @@ export const addGroup = (name, description) => async dispatch => {
             type: ADD_GROUP,
             payload: response.data.group || {}
         });
+
+        dispatch(showToastMessage(response.data.message));
 
         return true;
     } catch (err) {
@@ -121,7 +124,9 @@ export const updateGroup = (id, name, description) => async dispatch => {
         dispatch({
             type: UPDATE_GROUP,
             payload: response.data.group || {}
-        })
+        });
+
+        dispatch(showToastMessage(response.data.message));
 
         return true;
     } catch (err) {

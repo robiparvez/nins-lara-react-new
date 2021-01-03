@@ -3,6 +3,7 @@ import {
     GET_GROUP_PERMISSIONS,
     UPDATE_GROUP_PERMISSIONS
 } from "../../action-types/admin/permissionTypes";
+import { showToastMessage } from "../toastMessageActions";
 
 /**
  * @exports
@@ -42,12 +43,12 @@ export const updateGroupPermissions = (
             }
         );
 
-        console.log(response.data);
-
         dispatch({
             type: UPDATE_GROUP_PERMISSIONS,
             payload: response.data.permissions || []
         });
+
+        dispatch(showToastMessage(response.data.message));
 
         return true;
     } catch (err) {

@@ -41,7 +41,8 @@ class GroupController extends Controller
         );
 
         return response()->json([
-            'group' => $group,
+            'group'   => $group,
+            'message' => 'A new group has been created.',
         ], 201);
     }
 
@@ -79,7 +80,8 @@ class GroupController extends Controller
         );
 
         return response()->json([
-            'group' => $group,
+            'group'   => $group,
+            'message' => 'Selected group has been updated.',
         ]);
     }
 
