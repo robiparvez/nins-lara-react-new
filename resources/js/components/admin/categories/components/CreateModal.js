@@ -6,74 +6,77 @@ import {
     DialogActions,
     Button
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
-    clearErrors,
-    updateGroup
-} from "../../../../actions/admin/groupActions";
+    addCategory,
+    clearErrors
+} from "../../../../actions/admin/categoryActions";
 import {
     getFirstValidationError,
     hasValidationError
 } from "../../../../helpers";
 
-function EditModal({ group, errors, open, setOpen }) {
+function CreateModal({ errors, open, setOpen }) {
+    const [categoryName, setCategoryName] = useState("");
+    const [categoryDescription, setCategoryDescription] = useState("");
+
     const dispatch = useDispatch();
-
-    const [groupName, setGroupName] = useState("");
-    const [groupDescription, setGroupDescription] = useState("");
-
-    useEffect(() => {
-        setGroupName(group.name || "");
-        setGroupDescription(group.description || "");
-    }, [group]);
 
     const handleModalCreateButtonClick = async e => {
         e.preventDefault();
         const response = await dispatch(
-            updateGroup(group.id, groupName, groupDescription)
+            addCategory(categoryName, categoryDescription)
         );
 
         if (response) {
             setOpen(false);
+            setCategoryName("");
+            setCategoryDescription("");
         }
     };
 
     const handleModalClose = () => {
         dispatch(clearErrors());
         setOpen(false);
+        setCategoryName("");
+        setCategoryDescription("");
     };
 
     return (
         <div>
-            <Dialog aria-labelledby="simple-dialog-title" open={open}>
+            <Dialog
+                onClose={handleModalClose}
+                aria-labelledby="simple-dialog-title"
+                open={open}
+            >
                 <DialogTitle
                     id="simple-dialog-title"
                     style={{ textAlign: "center" }}
                 >
-                    Edit Group
+                    Create a Category
                 </DialogTitle>
                 <DialogContent style={{ marginBottom: "1rem" }}>
                     <TextField
                         autoFocus
                         margin="dense"
                         id="name"
-                        label="Group Name"
+                        label="Category Name"
                         type="text"
                         fullWidth
-                        value={groupName}
-                        onChange={e => setGroupName(e.target.value)}
+                        value={categoryName}
+                        onChange={e => setCategoryName(e.target.value)}
                         error={hasValidationError(errors, "name")}
                         helperText={getFirstValidationError(errors, "name")}
                     />
                     <TextField
                         margin="dense"
                         id="description"
-                        label="Group Description"
+                        label="Category Description"
                         type="text"
                         fullWidth
-                        value={groupDescription}
-                        onChange={e => setGroupDescription(e.target.value)}
+                        value={categoryDescription}
+                        onChange={e => setCategoryDescription(e.target.value)}
                         error={hasValidationError(errors, "description")}
                         helperText={getFirstValidationError(
                             errors,
@@ -89,7 +92,7 @@ function EditModal({ group, errors, open, setOpen }) {
                         onClick={e => handleModalCreateButtonClick(e)}
                         color="primary"
                     >
-                        Update
+                        Create
                     </Button>
                 </DialogActions>
             </Dialog>
@@ -97,4 +100,4 @@ function EditModal({ group, errors, open, setOpen }) {
     );
 }
 
-export default EditModal;
+export default CreateModal;

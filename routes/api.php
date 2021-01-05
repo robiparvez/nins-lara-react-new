@@ -24,4 +24,7 @@ Route::namespace('Admin')->prefix('/admin')->group(function () {
 
     Route::get('/groups/{id}/permissions', 'PermissionController@index');
     Route::put('/groups/{id}/permissions', 'PermissionController@assignPermissionsToGroup');
+
+    Route::apiResource('categories', 'CategoryController')
+        ->except(['destroy']);
 });

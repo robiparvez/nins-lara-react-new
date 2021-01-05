@@ -7,6 +7,7 @@ import Layout from "../admin/layouts/App";
 import AuthLayout from "../admin/layouts/Auth";
 import GroupIndex from "../admin/groups/Index";
 import PermissionIndex from "../admin/permissions/Index";
+import CategoryIndex from "../admin/categories/Index";
 
 /**
  * Router component for defining all the admin routes.
@@ -47,6 +48,14 @@ function AdminRouter({ match }) {
                 path={`${match.url}/groups/:id/permissions`}
                 redirectTo={`${match.url}/login`}
                 component={PermissionIndex}
+                layout={Layout}
+            />
+            <Route
+                exact={true}
+                authenticated={true}
+                path={`${match.url}/categories`}
+                redirectTo={`${match.url}/login`}
+                component={CategoryIndex}
                 layout={Layout}
             />
         </Switch>

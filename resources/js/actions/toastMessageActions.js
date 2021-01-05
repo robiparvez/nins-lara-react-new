@@ -5,7 +5,7 @@ import {
 
 /**
  * @param {string} message
- * @param {string} type
+ * @param {string|"default"} type
  * @param {boolean|true} autoHide
  * @param {string|null} vertical
  * @param {string|null} horizontal

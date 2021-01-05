@@ -10,7 +10,8 @@ import {
 } from "@material-ui/core";
 import {
     Dashboard as DashboardIcon,
-    People as PeopleIcon
+    People as PeopleIcon,
+    Category as CategoryIcon
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
@@ -57,6 +58,12 @@ function Sidebar() {
                             <PeopleIcon />
                         </ListItemIcon>
                         <ListItemText primary={"Manage Groups"} />
+                    </ListItem>
+                    <ListItem button component={Link} to={"/admin/categories"}>
+                        <ListItemIcon>
+                            <CategoryIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Manage Categories"} />
                     </ListItem>
                 </List>
             </div>

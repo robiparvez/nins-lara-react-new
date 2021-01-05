@@ -1,14 +1,14 @@
 import { combineReducers } from "redux";
-import postsReducer from "../reducers/postsReducer";
-import toastMessageReducer from "../reducers/toastMessageReducer";
-import adminAuthReducer from "../reducers/admin/authReducer";
-import AdminGroupsReducer from "../reducers/admin/groupReducer";
-import AdminPermissionsReducer from "../reducers/admin/permissionReducer";
+import toastMessageReducer from "./toastMessageReducer";
+import adminAuthReducer from "./admin/authReducer";
+import adminGroupReducer from "./admin/groupReducer";
+import adminPermissionReducer from "./admin/permissionReducer";
+import adminCategoryReducer from "./admin/categoryReducer";
 
 export default combineReducers({
-    posts: postsReducer,
     toastMessage: toastMessageReducer,
     adminAuth: adminAuthReducer,
-    adminGroups: AdminGroupsReducer,
-    adminPermissions: AdminPermissionsReducer
+    adminGroups: adminGroupReducer,
+    adminPermissions: adminPermissionReducer,
+    adminCategories: adminCategoryReducer
 });

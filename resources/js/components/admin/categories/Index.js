@@ -1,30 +1,28 @@
-import React, { useEffect, useState } from "react";
 import {
-    Typography,
-    makeStyles,
     Container,
-    TableContainer,
-    Table,
-    TableHead,
-    TableBody,
-    TableRow,
-    TableCell,
-    Paper,
+    Fab,
     IconButton,
+    makeStyles,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
     TablePagination,
-    Fab
+    TableRow,
+    Typography
 } from "@material-ui/core";
-import {
-    Edit as EditIcon,
-    Add as AddIcon,
-    Group as GroupIcon
-} from "@material-ui/icons";
+import { Edit as EditIcon, Add as AddIcon } from "@material-ui/icons";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getGroup, getGroups } from "../../../actions/admin/groupActions";
+import {
+    getCategories,
+    getCategory
+} from "../../../actions/admin/categoryActions";
 import { getDefaultPerPage } from "../../../helpers";
 import CreateModal from "./components/CreateModal";
 import EditModal from "./components/EditModal";
-import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
     heading: {
@@ -54,14 +52,14 @@ function Index() {
         prevPageUrl,
         nextPageUrl,
         perPage,
-        groups,
-        group,
+        categories,
+        category,
         total,
         errors
-    } = useSelector(state => state.adminGroups);
+    } = useSelector(state => state.adminCategories);
 
     useEffect(() => {
-        (async () => await dispatch(getGroups(perPage)))();
+        (async () => await dispatch(getCategories(perPage)))();
     }, []);
 
     const [page, setPage] = useState(0);
@@ -74,40 +72,40 @@ function Index() {
     };
 
     const handleChangeRowsPerPage = async e => {
-        await dispatch(getGroups(parseInt(e.target.value, 10)));
+        await dispatch(getCategories(parseInt(e.target.value, 10)));
         setRowsPerPage(parseInt(e.target.value, 10));
         setPage(0);
     };
 
     const handlePrevButtonClick = async e => {
         e.preventDefault();
-        await dispatch(getGroups(rowsPerPage, prevPageUrl));
+        await dispatch(getCategories(rowsPerPage, prevPageUrl));
         setPage(page - 1);
     };
 
     const handleNextButtonClick = async e => {
         e.preventDefault();
-        await dispatch(getGroups(rowsPerPage, nextPageUrl));
+        await dispatch(getCategories(rowsPerPage, nextPageUrl));
         setPage(page + 1);
     };
 
-    const openEditGroupModal = async (e, id) => {
+    const openEditCategoryModel = async (e, id) => {
         e.preventDefault();
 
-        if (await dispatch(getGroup(id))) {
+        if (await dispatch(getCategory(id))) {
             setToggleEditModal(true);
         }
     };
 
     let rows = null;
 
-    if (groups.length) {
-        rows = groups.map(group => (
-            <TableRow key={group.id}>
-                <TableCell>{group.id}</TableCell>
-                <TableCell>{group.name}</TableCell>
+    if (categories.length) {
+        rows = categories.map(category => (
+            <TableRow key={category.id}>
+                <TableCell>{category.id}</TableCell>
+                <TableCell>{category.name}</TableCell>
                 <TableCell>
-                    {group.description
+                    {category.description
                         ?.substr(0, 30)
                         .trim()
                         .concat("...")}
@@ -115,16 +113,9 @@ function Index() {
                 <TableCell>
                     <IconButton
                         color="primary"
-                        onClick={e => openEditGroupModal(e, group.id)}
+                        onClick={e => openEditCategoryModel(e, category.id)}
                     >
                         <EditIcon />
-                    </IconButton>
-                    <IconButton
-                        color="primary"
-                        component={Link}
-                        to={`/admin/groups/${group.id}/permissions`}
-                    >
-                        <GroupIcon />
                     </IconButton>
                 </TableCell>
             </TableRow>
@@ -147,7 +138,7 @@ function Index() {
                     component="h3"
                     className={classes.heading}
                 >
-                    Manage Groups
+                    Manage Categories
                 </Typography>
                 <Paper className={classes.paper}>
                     <TableContainer>
@@ -180,7 +171,7 @@ function Index() {
                         nextIconButtonProps={{
                             onClick: handleNextButtonClick
                         }}
-                    />
+                    ></TablePagination>
                 </Paper>
             </Container>
             <Fab
@@ -200,7 +191,7 @@ function Index() {
                 open={toggleEditModal}
                 setOpen={setToggleEditModal}
                 errors={errors}
-                group={group}
+                category={category}
             />
         </div>
     );

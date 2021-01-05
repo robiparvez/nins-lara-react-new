@@ -1,22 +1,22 @@
 import { CLEAR_VALIDATION_ERRORS, VALIDATION_FAILED } from "../../action-types";
 import {
-    ADD_GROUP,
-    GET_GROUP,
-    GET_GROUPS,
-    UPDATE_GROUP
-} from "../../action-types/admin/groupTypes";
+    ADD_CATEGORY,
+    GET_CATEGORIES,
+    GET_CATEGORY,
+    UPDATE_CATEGORY
+} from "../../action-types/admin/categoryTypes";
 
 const initialState = {
     prevPageUrl: null,
     nextPageUrl: null,
     perPage: 10,
     total: 0,
-    group: {
+    category: {
         id: null,
         name: null,
         description: null
     },
-    groups: [],
+    categories: [],
     errors: {
         name: [],
         description: []
@@ -25,32 +25,33 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
     switch (type) {
-        case GET_GROUPS: {
+        case GET_CATEGORIES: {
             return {
                 ...state,
-                prevPageUrl: payload.prev_page_url,
-                nextPageUrl: payload.next_page_url,
+                prevPageUrl: payload.prevPageUrl,
+                nextPageUrl: payload.nextPageUrl,
                 total: payload.total,
-                groups: payload.groups
+                categories: payload.categories,
+                perPage: payload.perPage
             };
         }
-        case GET_GROUP: {
+        case GET_CATEGORY: {
             return {
                 ...state,
-                group: payload
+                category: payload
             };
         }
-        case ADD_GROUP: {
+        case ADD_CATEGORY: {
             return {
                 ...state,
-                groups: [payload, ...state.groups]
+                categories: [payload, ...state.categories]
             };
         }
-        case UPDATE_GROUP: {
+        case UPDATE_CATEGORY: {
             return {
                 ...state,
-                groups: state.groups.map(group =>
-                    group.id === payload.id ? payload : group
+                categories: state.categories.map(category =>
+                    category.id === payload.id ? payload : category
                 )
             };
         }

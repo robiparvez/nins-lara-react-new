@@ -8,8 +8,11 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addGroup } from "../../../../actions/admin/groupActions";
-import { getFirstValidationError, hasValidationError } from "../../../../helpers";
+import { addGroup, clearErrors } from "../../../../actions/admin/groupActions";
+import {
+    getFirstValidationError,
+    hasValidationError
+} from "../../../../helpers";
 
 function CreateModal({ errors, open, setOpen }) {
     const [groupName, setGroupName] = useState("");
@@ -23,16 +26,21 @@ function CreateModal({ errors, open, setOpen }) {
 
         if (response) {
             setOpen(false);
+            setGroupName("");
+            setGroupDescription("");
         }
+    };
+
+    const handleModalClose = () => {
+        dispatch(clearErrors());
+        setOpen(false);
+        setGroupName("");
+        setGroupDescription("");
     };
 
     return (
         <div>
-            <Dialog
-                onClose={() => setOpen(false)}
-                aria-labelledby="simple-dialog-title"
-                open={open}
-            >
+            <Dialog aria-labelledby="simple-dialog-title" open={open}>
                 <DialogTitle
                     id="simple-dialog-title"
                     style={{ textAlign: "center" }}
@@ -68,8 +76,8 @@ function CreateModal({ errors, open, setOpen }) {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => setOpen(false)} color="primary">
-                        Cancel
+                    <Button onClick={handleModalClose} color="primary">
+                        Close
                     </Button>
                     <Button
                         onClick={e => handleModalCreateButtonClick(e)}

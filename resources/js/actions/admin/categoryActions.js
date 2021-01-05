@@ -1,21 +1,21 @@
 import Axios from "axios";
 import { CLEAR_VALIDATION_ERRORS, VALIDATION_FAILED } from "../../action-types";
 import {
-    ADD_GROUP,
-    GET_GROUP,
-    GET_GROUPS,
-    UPDATE_GROUP
-} from "../../action-types/admin/groupTypes";
+    ADD_CATEGORY,
+    GET_CATEGORIES,
+    GET_CATEGORY,
+    UPDATE_CATEGORY
+} from "../../action-types/admin/categoryTypes";
 import { showToastMessage } from "../toastMessageActions";
 
 /**
  * @param {number|10} perPage
- * @param {string|"/api/admin/groups"} url
+ * @param {string|"/api/admin/categories"} url
  * @returns {Promise<void>}
  */
-export const getGroups = (
+export const getCategories = (
     perPage = 10,
-    url = "/api/admin/groups"
+    url = "/api/admin/categories"
 ) => async dispatch => {
     try {
         const response = await Axios.get(url, {
@@ -29,15 +29,15 @@ export const getGroups = (
             next_page_url,
             total,
             data
-        } = response.data.groups;
+        } = response.data.categories;
 
         dispatch({
-            type: GET_GROUPS,
+            type: GET_CATEGORIES,
             payload: {
                 prevPageUrl: prev_page_url || null,
                 nextPageUrl: next_page_url || null,
                 total: total || 0,
-                groups: data || [],
+                categories: data || [],
                 perPage: perPage
             }
         });
@@ -48,20 +48,20 @@ export const getGroups = (
 
 /**
  * @param {number} id
- * @returns {Promise<boolean>}
+ * @returns {Promise<void>}
  */
-export const getGroup = id => async dispatch => {
+export const getCategory = id => async dispatch => {
     try {
-        const response = await Axios.get(`/api/admin/groups/${id}`);
+        const response = await Axios.get(`/api/admin/categories/${id}`);
 
-        const group = response.data.group;
+        const category = response.data.category;
 
         dispatch({
-            type: GET_GROUP,
+            type: GET_CATEGORY,
             payload: {
-                id: group.id || null,
-                name: group.name || null,
-                description: group.description || null
+                id: category.id || null,
+                name: category.name || null,
+                description: category.description || null
             }
         });
 
@@ -78,16 +78,16 @@ export const getGroup = id => async dispatch => {
  * @param {string} description
  * @returns {Promise<boolean>}
  */
-export const addGroup = (name, description) => async dispatch => {
+export const addCategory = (name, description) => async dispatch => {
     try {
-        const response = await Axios.post("/api/admin/groups", {
+        const response = await Axios.post("/api/admin/categories", {
             name,
             description
         });
 
         dispatch({
-            type: ADD_GROUP,
-            payload: response.data.group || {}
+            type: ADD_CATEGORY,
+            payload: response.data.category || {}
         });
 
         dispatch(clearErrors());
@@ -120,16 +120,16 @@ export const addGroup = (name, description) => async dispatch => {
  * @param {string} description
  * @returns {Promise<boolean>}
  */
-export const updateGroup = (id, name, description) => async dispatch => {
+export const updateCategory = (id, name, description) => async dispatch => {
     try {
-        const response = await Axios.put(`/api/admin/groups/${id}`, {
+        const response = await Axios.put(`/api/admin/categories/${id}`, {
             name,
             description
         });
 
         dispatch({
-            type: UPDATE_GROUP,
-            payload: response.data.group || {}
+            type: UPDATE_CATEGORY,
+            payload: response.data.category || {}
         });
 
         dispatch(clearErrors());
@@ -139,6 +139,7 @@ export const updateGroup = (id, name, description) => async dispatch => {
         return true;
     } catch (err) {
         console.log(err);
+
         const response = err.response;
 
         if (response && response.status === 422) {

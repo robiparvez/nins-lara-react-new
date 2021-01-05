@@ -10,28 +10,28 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
     clearErrors,
-    updateGroup
-} from "../../../../actions/admin/groupActions";
+    updateCategory
+} from "../../../../actions/admin/categoryActions";
 import {
     getFirstValidationError,
     hasValidationError
 } from "../../../../helpers";
 
-function EditModal({ group, errors, open, setOpen }) {
+function EditModal({ category, errors, open, setOpen }) {
     const dispatch = useDispatch();
 
-    const [groupName, setGroupName] = useState("");
-    const [groupDescription, setGroupDescription] = useState("");
+    const [categoryName, setCategoryName] = useState("");
+    const [categoryDescription, setCategoryDescription] = useState("");
 
     useEffect(() => {
-        setGroupName(group.name || "");
-        setGroupDescription(group.description || "");
-    }, [group]);
+        setCategoryName(category.name || "");
+        setCategoryDescription(category.description || "");
+    }, [category]);
 
     const handleModalCreateButtonClick = async e => {
         e.preventDefault();
         const response = await dispatch(
-            updateGroup(group.id, groupName, groupDescription)
+            updateCategory(category.id, categoryName, categoryDescription)
         );
 
         if (response) {
@@ -51,29 +51,29 @@ function EditModal({ group, errors, open, setOpen }) {
                     id="simple-dialog-title"
                     style={{ textAlign: "center" }}
                 >
-                    Edit Group
+                    Edit Category
                 </DialogTitle>
                 <DialogContent style={{ marginBottom: "1rem" }}>
                     <TextField
                         autoFocus
                         margin="dense"
                         id="name"
-                        label="Group Name"
+                        label="Category Name"
                         type="text"
                         fullWidth
-                        value={groupName}
-                        onChange={e => setGroupName(e.target.value)}
+                        value={categoryName}
+                        onChange={e => setCategoryName(e.target.value)}
                         error={hasValidationError(errors, "name")}
                         helperText={getFirstValidationError(errors, "name")}
                     />
                     <TextField
                         margin="dense"
                         id="description"
-                        label="Group Description"
+                        label="Category Description"
                         type="text"
                         fullWidth
-                        value={groupDescription}
-                        onChange={e => setGroupDescription(e.target.value)}
+                        value={categoryDescription}
+                        onChange={e => setCategoryDescription(e.target.value)}
                         error={hasValidationError(errors, "description")}
                         helperText={getFirstValidationError(
                             errors,
