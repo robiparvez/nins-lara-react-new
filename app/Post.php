@@ -18,6 +18,15 @@ class Post extends Model
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'image_url',
+    ];
+
+    /**
      * Categories belonging to this model.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -40,5 +49,15 @@ class Post extends Model
     public function author()
     {
         return $this->belongsTo('App\User', 'author_id');
+    }
+
+    /**
+     * Get post image url attribute.
+     *
+     * @return string
+     */
+    public function getImageUrlAttribute()
+    {
+        return asset('/storage/posts/covers/' . $this->attributes['image']);
     }
 }

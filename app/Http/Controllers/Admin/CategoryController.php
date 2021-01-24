@@ -10,15 +10,18 @@ use App\Http\Controllers\Controller;
 class CategoryController extends Controller
 {
     /**
-     * Display all categories with pagination.
+     * Display all categories or with pagination links.
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        $categories = Category::orderBy('created_at', 'desc')
-            ->paginate($request->input('per_page', 12));
+        $categoriesQuery = Category::orderBy('created_at', 'desc');
+
+        $categories = $request->has('all')
+            ? $categoriesQuery->get()
+            : $categoriesQuery->paginate($request->input('per_page', 12));
 
         return response()->json([
             'categories' => $categories,
