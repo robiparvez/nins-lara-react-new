@@ -27,4 +27,7 @@ Route::namespace('Admin')->prefix('/admin')->group(function () {
 
     Route::apiResource('categories', 'CategoryController')
         ->except(['destroy']);
+
+    Route::apiResource('posts', 'PostController')
+        ->except(['destroy']);
 });
