@@ -11,7 +11,8 @@ import {
 import {
     Dashboard as DashboardIcon,
     People as PeopleIcon,
-    Category as CategoryIcon
+    Category as CategoryIcon,
+    ListAltOutlined as ListAltOutlinedIcon
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
@@ -64,6 +65,12 @@ function Sidebar() {
                             <CategoryIcon />
                         </ListItemIcon>
                         <ListItemText primary={"Manage Categories"} />
+                    </ListItem>
+                    <ListItem button component={Link} to={"/admin/posts"}>
+                        <ListItemIcon>
+                            <ListAltOutlinedIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Manage Posts"} />
                     </ListItem>
                 </List>
             </div>

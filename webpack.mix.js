@@ -17,3 +17,9 @@ mix.react("resources/js/app.js", "public/js").sass(
 );
 
 mix.disableNotifications();
+
+mix.webpackConfig({
+    watchOptions: {
+        ignored: /node_modules/
+    }
+});

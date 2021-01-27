@@ -47,6 +47,30 @@ export const getCategories = (
 };
 
 /**
+ * Get all categories without pagination.
+ *
+ * @returns {Promise<void>}
+ */
+export const getCategoriesWithoutPagination = () => async dispatch => {
+    try {
+        const response = await Axios.get("/api/admin/categories", {
+            params: {
+                all: true
+            }
+        });
+
+        dispatch({
+            type: GET_CATEGORIES,
+            payload: {
+                categories: response.data.categories || []
+            }
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+/**
  * @param {number} id
  * @returns {Promise<void>}
  */

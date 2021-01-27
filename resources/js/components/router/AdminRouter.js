@@ -8,11 +8,14 @@ import AuthLayout from "../admin/layouts/Auth";
 import GroupIndex from "../admin/groups/Index";
 import PermissionIndex from "../admin/permissions/Index";
 import CategoryIndex from "../admin/categories/Index";
+import PostIndex from "../admin/posts/Index";
+import PostCreate from "../admin/posts/Create";
+import PostEdit from "../admin/posts/Edit";
 
 /**
  * Router component for defining all the admin routes.
  *
- * @param {string} { match } math url
+ * @param {string} { match } match url
  * @returns {import("react").FunctionComponent}
  */
 function AdminRouter({ match }) {
@@ -56,6 +59,30 @@ function AdminRouter({ match }) {
                 path={`${match.url}/categories`}
                 redirectTo={`${match.url}/login`}
                 component={CategoryIndex}
+                layout={Layout}
+            />
+            <Route
+                exact={true}
+                authenticated={true}
+                path={`${match.url}/posts`}
+                redirectTo={`${match.url}/login`}
+                component={PostIndex}
+                layout={Layout}
+            />
+            <Route
+                exact={true}
+                authenticated={true}
+                path={`${match.url}/posts/create`}
+                redirectTo={`${match.url}/login`}
+                component={PostCreate}
+                layout={Layout}
+            />
+            <Route
+                exact={true}
+                authenticated={true}
+                path={`${match.url}/posts/:id/edit`}
+                redirectTo={`${match.url}/login`}
+                component={PostEdit}
                 layout={Layout}
             />
         </Switch>
