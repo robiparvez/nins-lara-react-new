@@ -3,15 +3,15 @@ import {
     Toolbar,
     IconButton,
     Typography,
-    CssBaseline,
     Menu,
     MenuItem,
     makeStyles
 } from "@material-ui/core";
-import { Menu as MenuIcon, AccountCircle } from "@material-ui/icons";
-import React, { useState } from "react";
+import { AccountCircle } from "@material-ui/icons";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../actions/admin/authActions";
+import Loader from "./Loader";
 
 const useStyles = makeStyles(theme => ({
     menuButton: {
@@ -30,10 +30,13 @@ function Navbar() {
     const classes = useStyles();
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        return () => handleClose(); //cleanup on unmount
+    }, []);
+
     const handleLogoutClick = async e => {
         e.preventDefault();
         await dispatch(logout());
-        handleClose();
     };
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -74,6 +77,7 @@ function Navbar() {
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
             </Menu>
+            <Loader />
         </AppBar>
     );
 }

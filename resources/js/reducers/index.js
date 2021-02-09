@@ -5,6 +5,7 @@ import adminGroupReducer from "./admin/groupReducer";
 import adminPermissionReducer from "./admin/permissionReducer";
 import adminCategoryReducer from "./admin/categoryReducer";
 import adminPostReducer from "./admin/postReducer";
+import adminLoaderReducer from "./admin/loaderReducer";
 
 export default combineReducers({
     toastMessage: toastMessageReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
     adminGroups: adminGroupReducer,
     adminPermissions: adminPermissionReducer,
     adminCategories: adminCategoryReducer,
-    adminPosts: adminPostReducer
+    adminPosts: adminPostReducer,
+    adminLoader: adminLoaderReducer
 });
