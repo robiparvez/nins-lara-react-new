@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Str;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Store a file in the storage.
@@ -23,4 +24,14 @@ function store_file(UploadedFile $file, string $uploadPath, string $disk = 'loca
     ]);
 
     return $fileName;
+}
+
+/**
+ * Get the admin authentication guard instance.
+ *
+ * @return \Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard
+ */
+function adminGuard()
+{
+    return Auth::guard('api');
 }

@@ -30,4 +30,7 @@ Route::namespace('Admin')->prefix('/admin')->group(function () {
 
     Route::apiResource('posts', 'PostController')
         ->except(['destroy']);
+
+    Route::get('/profile', 'ProfileController@show');
+    Route::put('/profile', 'ProfileController@update');
 });

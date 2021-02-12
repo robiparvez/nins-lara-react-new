@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Admin\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
@@ -35,7 +33,7 @@ class LoginController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        if (!$token = $this->guard()->attempt($credentials)) {
+        if (!$token = adminGuard()->attempt($credentials)) {
             throw ValidationException::withMessages([
                 'email' => ['These credentials do not match our records.'],
             ]);
@@ -54,20 +52,10 @@ class LoginController extends Controller
      */
     public function logout()
     {
-        $this->guard()->logout();
+        adminGuard()->logout();
 
         return response()->json([
             'msg' => 'You are logged out!',
         ]);
-    }
-
-    /**
-     * Get the authentication guard instance.
-     * 
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
-     */
-    private function guard()
-    {
-        return Auth::guard('api');
     }
 }
