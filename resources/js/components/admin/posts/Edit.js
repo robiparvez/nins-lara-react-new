@@ -26,6 +26,7 @@ import {
 } from "../../../actions/admin/postActions";
 import { useHistory, useParams } from "react-router-dom";
 import { getFirstValidationError, hasValidationError } from "../../../helpers";
+import { toggleLoader } from "../../../actions/admin/loaderActions";
 
 const useStyles = makeStyles(theme => ({
     heading: {
@@ -66,10 +67,15 @@ function Edit() {
     const { categories } = useSelector(state => state.adminCategories);
 
     useEffect(() => {
-        (async () => {
+        (() => {
             dispatch(clearErrors()); //forget previous validation errors
-            await dispatch(getCategoriesWithoutPagination());
-            await dispatch(getPost(id));
+
+            dispatch(async dispatch => {
+                dispatch(toggleLoader());
+                await dispatch(getCategoriesWithoutPagination());
+                await dispatch(getPost(id));
+                dispatch(toggleLoader());
+            });
         })();
     }, []);
 

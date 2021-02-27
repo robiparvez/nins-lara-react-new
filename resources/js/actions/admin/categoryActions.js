@@ -1,4 +1,4 @@
-import Axios from "axios";
+import Axios from "../../services/axios";
 import { CLEAR_VALIDATION_ERRORS, VALIDATION_FAILED } from "../../action-types";
 import {
     ADD_CATEGORY,

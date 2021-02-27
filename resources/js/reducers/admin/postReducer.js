@@ -71,7 +71,7 @@ export default (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 errors: {
-                    ...state,
+                    ...state.errors,
                     ...payload
                 }
             };

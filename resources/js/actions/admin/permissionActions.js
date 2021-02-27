@@ -1,4 +1,4 @@
-import Axios from "axios";
+import Axios from "../../services/axios";
 import {
     GET_GROUP_PERMISSIONS,
     UPDATE_GROUP_PERMISSIONS

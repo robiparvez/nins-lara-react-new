@@ -4,6 +4,11 @@ object-assign
 @license MIT
 */
 
+/*!*
+ * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
 /**
  * A better abstraction over CSS.
  *

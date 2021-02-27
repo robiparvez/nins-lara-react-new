@@ -1,4 +1,4 @@
-import Axios from "axios";
+import Axios from "../../services/axios";
 import {
     ADD_POST,
     GET_POST,
