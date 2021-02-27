@@ -44,7 +44,7 @@ class ProfileController extends Controller
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
 
-        if ($request->has('new_password')) {
+        if ($request->new_password) {
             $user->password = Hash::make($request->new_password);
         }
 
