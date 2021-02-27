@@ -1,7 +1,10 @@
 import React from "react";
 import Navbar from "../includes/Navbar";
-import { makeStyles, Toolbar, CssBaseline } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import Sidebar from "../includes/Sidebar";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getProfile } from "../../../actions/admin/profileActions";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -14,9 +17,15 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function App({ component }) {
+function App({ component: Component }) {
     const classes = useStyles();
-    const Component = component;
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        (async () => {
+            await dispatch(getProfile());
+        })();
+    }, []);
 
     return (
         <div className={classes.root}>

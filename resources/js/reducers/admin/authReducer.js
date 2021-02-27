@@ -4,13 +4,9 @@ import {
     LOGOUT_SUCCESS
 } from "../../action-types/admin/authTypes";
 import { VALIDATION_FAILED } from "../../action-types";
+import Axios from "../../services/axios";
 
 const initialState = {
-    user: {
-        id: "",
-        name: "",
-        email: ""
-    },
     token: localStorage.getItem("token"),
     errors: {
         email: [],
@@ -22,7 +18,7 @@ export default (state = initialState, { type, payload }) => {
     switch (type) {
         case LOGIN_SUCCESS: {
             localStorage.setItem("token", payload);
-            window.axios.defaults.headers.common[
+            Axios.defaults.headers.common[
                 "Authorization"
             ] = `Bearer ${payload}`;
 
@@ -31,10 +27,9 @@ export default (state = initialState, { type, payload }) => {
                 token: payload
             };
         }
-        case LOGIN_FAILED:
         case LOGOUT_SUCCESS: {
             localStorage.removeItem("token");
-            delete window.axios.defaults.headers.common["Authorization"];
+            delete Axios.defaults.headers.common["Authorization"];
 
             return {
                 ...state,

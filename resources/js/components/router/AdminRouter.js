@@ -11,6 +11,7 @@ import CategoryIndex from "../admin/categories/Index";
 import PostIndex from "../admin/posts/Index";
 import PostCreate from "../admin/posts/Create";
 import PostEdit from "../admin/posts/Edit";
+import ProfileEdit from "../admin/profile/Edit";
 
 /**
  * Router component for defining all the admin routes.
@@ -83,6 +84,14 @@ function AdminRouter({ match }) {
                 path={`${match.url}/posts/:id/edit`}
                 redirectTo={`${match.url}/login`}
                 component={PostEdit}
+                layout={Layout}
+            />
+            <Route
+                exact={true}
+                authenticated={true}
+                path={`${match.url}/profile/edit`}
+                redirectTo={`${match.url}/login`}
+                component={ProfileEdit}
                 layout={Layout}
             />
         </Switch>

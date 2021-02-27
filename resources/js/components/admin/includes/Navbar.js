@@ -9,9 +9,11 @@ import {
 } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../actions/admin/authActions";
+import { limitString } from "../../../helpers";
 import Loader from "./Loader";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
     menuButton: {
@@ -23,12 +25,18 @@ const useStyles = makeStyles(theme => ({
     title: {
         flexGrow: 1,
         textAlign: "center"
+    },
+    username: {
+        marginLeft: "5px",
+        fontSize: "15px",
+        textTransform: "uppercase"
     }
 }));
 
 function Navbar() {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const { user } = useSelector(state => state.adminProfile);
 
     useEffect(() => {
         return () => handleClose(); //cleanup on unmount
@@ -64,6 +72,12 @@ function Navbar() {
                     color="inherit"
                 >
                     <AccountCircle />
+                    <Typography variant="h6" className={classes.username}>
+                        {limitString(
+                            `${user.first_name || ""} ${user.last_name || ""}`,
+                            10
+                        )}
+                    </Typography>
                 </IconButton>
             </Toolbar>
             <Menu
@@ -74,7 +88,13 @@ function Navbar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem
+                    to={`/admin/profile/edit`}
+                    component={Link}
+                    onClick={handleClose}
+                >
+                    Profile
+                </MenuItem>
                 <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
             </Menu>
             <Loader />
