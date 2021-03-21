@@ -17,6 +17,12 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+/**
+ * Layout component for admin routes.
+ *
+ * @param {import("react").FunctionComponent} { component } current route component
+ * @returns {import("react").FunctionComponent}
+ */
 function App({ component: Component }) {
     const classes = useStyles();
     const dispatch = useDispatch();

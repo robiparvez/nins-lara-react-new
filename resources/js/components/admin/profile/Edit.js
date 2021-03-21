@@ -51,6 +51,8 @@ function Edit() {
             setFirstName(user.first_name);
             setLastName(user.last_name);
             setEmail(user.email);
+            setCurrentPassword("");
+            setNewPassword("");
         })();
     }, [user]);
 

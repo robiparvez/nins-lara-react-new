@@ -55,9 +55,7 @@ export default (state = initialState, { type, payload }) => {
         case CLEAR_VALIDATION_ERRORS: {
             return {
                 ...state,
-                errors: {
-                    ...state.errors
-                }
+                errors: initialState.errors
             };
         }
         default:

@@ -1,8 +1,12 @@
 import React from "react";
 
-function Auth(props) {
-    const Component = props.component;
-
+/**
+ * Layout component for admin login/register routes.
+ *
+ * @param {import("react").FunctionComponent} { component } current route component
+ * @returns {import("react").FunctionComponent}
+ */
+function Auth({ component: Component }) {
     return (
         <div>
             <Component />

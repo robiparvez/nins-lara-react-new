@@ -3,15 +3,13 @@ import React from "react";
 /**
  * Layout component for front routes.
  *
- * @param {import("react").FunctionComponent} { child } current route component
+ * @param {import("react").FunctionComponent} { component } current route component
  * @returns {import("react").FunctionComponent}
  */
-function App({ child }) {
-    const Child = child;
-
+function App({ component: Component }) {
     return (
         <div>
-            <Child />
+            <Component />
         </div>
     );
 }
