@@ -27,8 +27,14 @@ class ProfileController extends Controller
     {
         $user = adminGuard()->user();
 
+        $permissions = $user->group
+            ->permissions()
+            ->select(['id', 'name'])
+            ->get();
+
         return response()->json([
-            'user' => $user,
+            'user'        => $user,
+            'permissions' => $permissions,
         ]);
     }
 

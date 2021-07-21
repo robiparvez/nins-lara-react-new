@@ -77,4 +77,64 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany('App\Post', 'author_id');
     }
+
+    /**
+     * Get all the permissions belonging to this
+     * user's group.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function permissions()
+    {
+        return $this->group->permissions;
+    }
+
+    /**
+     * Check if this model has specified permission.
+     *
+     * @param string $permissionName
+     * @return boolean
+     */
+    public function hasAccess(string $permissionName)
+    {
+        return $this->permissions()->where('name', $permissionName)->first()
+            ? true
+            : false;
+    }
+
+    /**
+     * Check if this model has any of the specified
+     * permissions.
+     *
+     * @param array $permissionNames
+     * @return boolean
+     */
+    public function hasAnyAccess(array $permissionNames)
+    {
+        foreach ($this->permissions() as $permission) {
+            if (in_array($permission->name, $permissionNames)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if this model has all of the specified
+     * permission.
+     *
+     * @param array $permissionNames
+     * @return boolean
+     */
+    public function hasAllAccess(array $permissionNames)
+    {
+        foreach ($this->permissions() as $permission) {
+            if (!in_array($permission->name, $permissionNames)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
