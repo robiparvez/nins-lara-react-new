@@ -10,12 +10,12 @@ import { showToastMessage } from "../toastMessageActions";
 
 /**
  * @param {number|10} perPage
- * @param {string|"/api/admin/groups"} url
+ * @param {string|"admin/groups"} url
  * @returns {Promise<void>}
  */
 export const getGroups = (
     perPage = 10,
-    url = "/api/admin/groups"
+    url = "admin/groups"
 ) => async dispatch => {
     try {
         const response = await Axios.get(url, {
@@ -52,7 +52,7 @@ export const getGroups = (
  */
 export const getGroup = id => async dispatch => {
     try {
-        const response = await Axios.get(`/api/admin/groups/${id}`);
+        const response = await Axios.get(`admin/groups/${id}`);
 
         const group = response.data.group;
 
@@ -80,7 +80,7 @@ export const getGroup = id => async dispatch => {
  */
 export const addGroup = (name, description) => async dispatch => {
     try {
-        const response = await Axios.post("/api/admin/groups", {
+        const response = await Axios.post("admin/groups", {
             name,
             description
         });
@@ -122,7 +122,7 @@ export const addGroup = (name, description) => async dispatch => {
  */
 export const updateGroup = (id, name, description) => async dispatch => {
     try {
-        const response = await Axios.put(`/api/admin/groups/${id}`, {
+        const response = await Axios.put(`admin/groups/${id}`, {
             name,
             description
         });

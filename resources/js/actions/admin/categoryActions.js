@@ -10,12 +10,12 @@ import { showToastMessage } from "../toastMessageActions";
 
 /**
  * @param {number|10} perPage
- * @param {string|"/api/admin/categories"} url
+ * @param {string|"admin/categories"} url
  * @returns {Promise<void>}
  */
 export const getCategories = (
     perPage = 10,
-    url = "/api/admin/categories"
+    url = "admin/categories"
 ) => async dispatch => {
     try {
         const response = await Axios.get(url, {
@@ -53,7 +53,7 @@ export const getCategories = (
  */
 export const getCategoriesWithoutPagination = () => async dispatch => {
     try {
-        const response = await Axios.get("/api/admin/categories", {
+        const response = await Axios.get("admin/categories", {
             params: {
                 all: true
             }
@@ -76,7 +76,7 @@ export const getCategoriesWithoutPagination = () => async dispatch => {
  */
 export const getCategory = id => async dispatch => {
     try {
-        const response = await Axios.get(`/api/admin/categories/${id}`);
+        const response = await Axios.get(`admin/categories/${id}`);
 
         const category = response.data.category;
 
@@ -104,7 +104,7 @@ export const getCategory = id => async dispatch => {
  */
 export const addCategory = (name, description) => async dispatch => {
     try {
-        const response = await Axios.post("/api/admin/categories", {
+        const response = await Axios.post("admin/categories", {
             name,
             description
         });
@@ -146,7 +146,7 @@ export const addCategory = (name, description) => async dispatch => {
  */
 export const updateCategory = (id, name, description) => async dispatch => {
     try {
-        const response = await Axios.put(`/api/admin/categories/${id}`, {
+        const response = await Axios.put(`admin/categories/${id}`, {
             name,
             description
         });

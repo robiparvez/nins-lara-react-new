@@ -13,7 +13,7 @@ import { clearProfile } from "./profileActions";
  */
 export const login = (email, password) => async dispatch => {
     try {
-        const response = await Axios.post("/api/admin/login", {
+        const response = await Axios.post("admin/login", {
             email,
             password
         });
@@ -48,7 +48,7 @@ export const login = (email, password) => async dispatch => {
  */
 export const logout = () => async dispatch => {
     try {
-        await Axios.post("/api/admin/logout");
+        await Axios.post("admin/logout");
 
         return logoutAnyWay(dispatch);
     } catch (err) {

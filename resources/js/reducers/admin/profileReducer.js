@@ -13,6 +13,7 @@ const initialState = {
         email: "",
         group_id: ""
     },
+    permissions: [],
     errors: {
         first_name: [],
         last_name: [],
@@ -30,8 +31,9 @@ export default (state = initialState, { type, payload }) => {
                 ...state,
                 user: {
                     ...state.user,
-                    ...payload
-                }
+                    ...payload.user
+                },
+                permissions: payload.permissions
             };
         }
         case UPDATE_PROFILE: {

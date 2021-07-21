@@ -13,7 +13,7 @@ import { showToastMessage } from "../toastMessageActions";
 export const getGroupPermissions = groupId => async dispatch => {
     try {
         const response = await Axios.get(
-            `/api/admin/groups/${groupId}/permissions`
+            `admin/groups/${groupId}/permissions`
         );
 
         dispatch({
@@ -37,7 +37,7 @@ export const updateGroupPermissions = (
 ) => async dispatch => {
     try {
         const response = await Axios.put(
-            `/api/admin/groups/${groupId}/permissions`,
+            `admin/groups/${groupId}/permissions`,
             {
                 permissions
             }

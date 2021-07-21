@@ -12,17 +12,20 @@ import { showToastMessage } from "../toastMessageActions";
  */
 export const getProfile = () => async dispatch => {
     try {
-        const response = await Axios.get("/api/admin/profile");
+        const response = await Axios.get("admin/profile");
 
-        const { user } = response.data;
+        const { user, permissions } = response.data;
 
         dispatch({
             type: GET_PROFILE,
             payload: {
-                first_name: user.first_name || "",
-                last_name: user.last_name || "",
-                email: user.email || "",
-                group_id: user.group_id || ""
+                user: {
+                    first_name: user.first_name || "",
+                    last_name: user.last_name || "",
+                    email: user.email || "",
+                    group_id: user.group_id || ""
+                },
+                permissions: permissions || []
             }
         });
     } catch (err) {
@@ -36,7 +39,7 @@ export const getProfile = () => async dispatch => {
  */
 export const updateProfile = userProfile => async dispatch => {
     try {
-        const response = await Axios.put("/api/admin/profile", userProfile);
+        const response = await Axios.put("admin/profile", userProfile);
 
         const { user, message } = response.data;
 

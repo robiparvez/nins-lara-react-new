@@ -10,12 +10,12 @@ import { showToastMessage } from "../toastMessageActions";
 
 /**
  * @param {number|10} perPage
- * @param {string|"/api/admin/posts"} url
+ * @param {string|"admin/posts"} url
  * @returns {Promise<void>}
  */
 export const getPosts = (
     perPage = 10,
-    url = "/api/admin/posts"
+    url = "admin/posts"
 ) => async dispatch => {
     try {
         const response = await Axios.get(url, {
@@ -50,7 +50,7 @@ export const getPosts = (
  */
 export const getPost = id => async dispatch => {
     try {
-        const response = await Axios.get(`/api/admin/posts/${id}`);
+        const response = await Axios.get(`admin/posts/${id}`);
 
         dispatch({
             type: GET_POST,
@@ -71,7 +71,7 @@ export const getPost = id => async dispatch => {
  */
 export const addPost = formData => async dispatch => {
     try {
-        const response = await Axios.post("/api/admin/posts", formData, {
+        const response = await Axios.post("admin/posts", formData, {
             headers: {
                 "Content-Type": "multipart/form-data"
             }
@@ -122,7 +122,7 @@ export const addPost = formData => async dispatch => {
  */
 export const updatePost = (id, formData) => async dispatch => {
     try {
-        const response = await Axios.post(`/api/admin/posts/${id}`, formData, {
+        const response = await Axios.post(`admin/posts/${id}`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data"
             }

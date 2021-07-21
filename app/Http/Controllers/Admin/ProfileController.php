@@ -30,7 +30,8 @@ class ProfileController extends Controller
         $permissions = $user->group
             ->permissions()
             ->select(['id', 'name'])
-            ->get();
+            ->get()
+            ->makeHidden('pivot');
 
         return response()->json([
             'user'        => $user,
