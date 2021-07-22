@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -34,7 +34,7 @@ class Post extends Model
     public function categories()
     {
         return $this->belongsToMany(
-            'App\Category',
+            Category::class,
             'post_category_mappings',
             'post_id',
             'category_id'
@@ -48,7 +48,7 @@ class Post extends Model
      */
     public function author()
     {
-        return $this->belongsTo('App\User', 'author_id');
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     /**

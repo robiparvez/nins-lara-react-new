@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,7 +24,7 @@ class Group extends Model
     public function permissions()
     {
         return $this->belongsToMany(
-            'App\Permission',
+            Permission::class,
             'group_permission_mappings',
             'group_id',
             'permission_id'

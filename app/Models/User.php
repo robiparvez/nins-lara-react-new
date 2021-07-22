@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -65,7 +65,7 @@ class User extends Authenticatable implements JWTSubject
      */
     public function group()
     {
-        return $this->belongsTo('App\Group', 'group_id');
+        return $this->belongsTo(Group::class, 'group_id');
     }
 
     /**
@@ -75,7 +75,7 @@ class User extends Authenticatable implements JWTSubject
      */
     public function posts()
     {
-        return $this->hasMany('App\Post', 'author_id');
+        return $this->hasMany(Post::class, 'author_id');
     }
 
     /**

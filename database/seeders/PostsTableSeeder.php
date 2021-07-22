@@ -1,5 +1,8 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Category;
 use Illuminate\Database\Seeder;
 
 class PostsTableSeeder extends Seeder
@@ -12,7 +15,7 @@ class PostsTableSeeder extends Seeder
     public function run()
     {
         factory(App\Post::class, 30)->create()->each(function ($post) {
-            $post->categories()->saveMany(App\Category::inRandomOrder()->take(5)->get());
+            $post->categories()->saveMany(Category::inRandomOrder()->take(5)->get());
         });
     }
 }

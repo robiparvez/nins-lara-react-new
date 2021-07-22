@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,7 +25,7 @@ class Category extends Model
     public function posts()
     {
         return $this->belongsToMany(
-            'App\Post',
+            Post::class,
             'post_category_mappings',
             'category_id',
             'post_id'

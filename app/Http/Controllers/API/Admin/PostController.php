@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\API\Admin;
 
-use App\Post;
+use App\Models\Post;
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -47,7 +47,7 @@ class PostController extends Controller
                 'updated_at'
             ])
             ->orderBy('created_at', 'desc')
-            ->where('author_id', Auth::id())
+            ->where('author_id', adminGuard()->id())
             ->paginate($request->input('per_page', 12));
 
         return response()->json([
@@ -95,7 +95,7 @@ class PostController extends Controller
             'categories',
             'author:id,first_name,last_name,email'
         ])
-            ->where('author_id', Auth::id())
+            ->where('author_id', adminGuard()->id())
             ->findOrFail($id);
 
         return response()->json([
@@ -152,7 +152,7 @@ class PostController extends Controller
 
             $post->meta_title = $request->meta_title;
             $post->meta_description = $request->meta_description;
-            $post->author_id = Auth::id();
+            $post->author_id = adminGuard()->id();
             $post->save();
 
             $post->categories()->sync($request->categories);

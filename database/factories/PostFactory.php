@@ -1,19 +1,34 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use App\Post;
-use App\User;
-use Faker\Generator as Faker;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Post::class, function (Faker $faker) {
-    return [
-        'name'             => $faker->text(120),
-        'slug'             => $faker->slug(12),
-        'content'          => $faker->text(5000),
-        'image'            => 'image.png',
-        'meta_title'       => $faker->text(120),
-        'meta_description' => $faker->text(250),
-        'author_id'        => User::first()->id,
-    ];
-});
+class PostFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = User::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name'             => $this->faker->text(120),
+            'slug'             => $this->faker->slug(12),
+            'content'          => $this->faker->text(5000),
+            'image'            => 'image.png',
+            'meta_title'       => $this->faker->text(120),
+            'meta_description' => $this->faker->text(250),
+            'author_id'        => User::first()->id,
+        ];
+    }
+}
