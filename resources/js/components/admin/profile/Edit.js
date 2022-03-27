@@ -1,13 +1,12 @@
 import {
-    Card,
+    Button, Card,
     CardContent,
     Container,
     FormControl,
     Grid,
     makeStyles,
     TextField,
-    Typography,
-    Button
+    Typography
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -83,7 +82,7 @@ function Edit() {
                     <form onSubmit={handleSubmit}>
                         <Grid
                             container
-                            justify="center"
+                            justifyContent="center"
                             alignItems="center"
                             spacing={2}
                         >

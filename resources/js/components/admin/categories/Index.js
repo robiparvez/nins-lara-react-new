@@ -1,43 +1,26 @@
-import {
-    Container,
-    Fab,
-    IconButton,
-    makeStyles,
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TablePagination,
-    TableRow,
-    Typography
-} from "@material-ui/core";
-import { Edit as EditIcon, Add as AddIcon } from "@material-ui/icons";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-    getCategories,
-    getCategory
-} from "../../../actions/admin/categoryActions";
-import { getDefaultPerPage } from "../../../helpers";
-import CreateModal from "./components/CreateModal";
-import EditModal from "./components/EditModal";
+import { Container, Fab, IconButton, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from '@material-ui/core';
+import { Add as AddIcon, Edit as EditIcon } from '@material-ui/icons';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCategories, getCategory } from '../../../actions/admin/categoryActions';
+import { getDefaultPerPage } from '../../../helpers';
+import CreateModal from './components/CreateModal';
+import EditModal from './components/EditModal';
 
 const useStyles = makeStyles(theme => ({
     heading: {
-        textAlign: "center",
-        marginTop: "0.5rem",
-        marginBottom: "1rem",
-        color: "#424242"
+        textAlign: 'center',
+        marginTop: '0.5rem',
+        marginBottom: '1rem',
+        color: '#424242'
     },
     paper: {
-        width: "100%",
+        width: '100%',
         marginBottom: theme.spacing(2)
     },
     table: {},
     fab: {
-        position: "fixed",
+        position: 'fixed',
         bottom: theme.spacing(4),
         right: theme.spacing(4)
     }
@@ -48,15 +31,7 @@ function Index() {
 
     const dispatch = useDispatch();
 
-    const {
-        prevPageUrl,
-        nextPageUrl,
-        perPage,
-        categories,
-        category,
-        total,
-        errors
-    } = useSelector(state => state.adminCategories);
+    const { prevPageUrl, nextPageUrl, perPage, categories, category, total, errors } = useSelector(state => state.adminCategories);
 
     useEffect(() => {
         (async () => await dispatch(getCategories(perPage)))();
@@ -104,17 +79,9 @@ function Index() {
             <TableRow key={category.id}>
                 <TableCell>{category.id}</TableCell>
                 <TableCell>{category.name}</TableCell>
+                <TableCell>{category.description?.substr(0, 30).trim().concat('...')}</TableCell>
                 <TableCell>
-                    {category.description
-                        ?.substr(0, 30)
-                        .trim()
-                        .concat("...")}
-                </TableCell>
-                <TableCell>
-                    <IconButton
-                        color="primary"
-                        onClick={e => openEditCategoryModel(e, category.id)}
-                    >
+                    <IconButton color='primary' onClick={e => openEditCategoryModel(e, category.id)}>
                         <EditIcon />
                     </IconButton>
                 </TableCell>
@@ -123,7 +90,7 @@ function Index() {
     } else {
         rows = (
             <TableRow>
-                <TableCell colSpan={3} align="center">
+                <TableCell colSpan={3} align='center'>
                     No Records!
                 </TableCell>
             </TableRow>
@@ -133,19 +100,12 @@ function Index() {
     return (
         <div>
             <Container>
-                <Typography
-                    variant="h3"
-                    component="h3"
-                    className={classes.heading}
-                >
+                <Typography variant='h3' component='h3' className={classes.heading}>
                     Manage Categories
                 </Typography>
                 <Paper className={classes.paper}>
                     <TableContainer>
-                        <Table
-                            className={classes.table}
-                            aria-label="simple table"
-                        >
+                        <Table className={classes.table} aria-label='simple table'>
                             <TableHead>
                                 <TableRow>
                                     <TableCell>ID</TableCell>
@@ -159,40 +119,25 @@ function Index() {
                     </TableContainer>
                     <TablePagination
                         rowsPerPageOptions={getDefaultPerPage(total)}
-                        component="div"
+                        component='div'
                         count={total}
                         rowsPerPage={rowsPerPage}
                         page={page}
-                        onChangePage={handleChangePage}
-                        onChangeRowsPerPage={handleChangeRowsPerPage}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
                         backIconButtonProps={{
                             onClick: handlePrevButtonClick
                         }}
                         nextIconButtonProps={{
                             onClick: handleNextButtonClick
-                        }}
-                    ></TablePagination>
+                        }}></TablePagination>
                 </Paper>
             </Container>
-            <Fab
-                color="primary"
-                aria-label="add"
-                className={classes.fab}
-                onClick={() => setToggleCreateModal(true)}
-            >
+            <Fab color='primary' aria-label='add' className={classes.fab} onClick={() => setToggleCreateModal(true)}>
                 <AddIcon />
             </Fab>
-            <CreateModal
-                open={toggleCreateModal}
-                setOpen={setToggleCreateModal}
-                errors={errors}
-            />
-            <EditModal
-                open={toggleEditModal}
-                setOpen={setToggleEditModal}
-                errors={errors}
-                category={category}
-            />
+            <CreateModal open={toggleCreateModal} setOpen={setToggleCreateModal} errors={errors} />
+            <EditModal open={toggleEditModal} setOpen={setToggleEditModal} errors={errors} category={category} />
         </div>
     );
 }

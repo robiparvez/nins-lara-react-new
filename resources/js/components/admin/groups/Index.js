@@ -1,45 +1,27 @@
-import React, { useEffect, useState } from "react";
-import {
-    Typography,
-    makeStyles,
-    Container,
-    TableContainer,
-    Table,
-    TableHead,
-    TableBody,
-    TableRow,
-    TableCell,
-    Paper,
-    IconButton,
-    TablePagination,
-    Fab
-} from "@material-ui/core";
-import {
-    Edit as EditIcon,
-    Add as AddIcon,
-    Group as GroupIcon
-} from "@material-ui/icons";
-import { useDispatch, useSelector } from "react-redux";
-import { getGroup, getGroups } from "../../../actions/admin/groupActions";
-import { getDefaultPerPage } from "../../../helpers";
-import CreateModal from "./components/CreateModal";
-import EditModal from "./components/EditModal";
-import { Link } from "react-router-dom";
+import { Container, Fab, IconButton, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from '@material-ui/core';
+// import { Add as AddIcon, Edit as EditIcon, Group as GroupIcon } from '@material-ui/icons';
+import { Add as AddIcon, Edit as EditIcon } from '@material-ui/icons';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getGroup, getGroups } from '../../../actions/admin/groupActions';
+import { getDefaultPerPage } from '../../../helpers';
+import CreateModal from './components/CreateModal';
+import EditModal from './components/EditModal';
 
 const useStyles = makeStyles(theme => ({
     heading: {
-        textAlign: "center",
-        marginTop: "0.5rem",
-        marginBottom: "1rem",
-        color: "#424242"
+        textAlign: 'center',
+        marginTop: '0.5rem',
+        marginBottom: '1rem',
+        color: '#424242'
     },
     paper: {
-        width: "100%",
+        width: '100%',
         marginBottom: theme.spacing(2)
     },
     table: {},
     fab: {
-        position: "fixed",
+        position: 'fixed',
         bottom: theme.spacing(4),
         right: theme.spacing(4)
     }
@@ -50,15 +32,7 @@ function Index() {
 
     const dispatch = useDispatch();
 
-    const {
-        prevPageUrl,
-        nextPageUrl,
-        perPage,
-        groups,
-        group,
-        total,
-        errors
-    } = useSelector(state => state.adminGroups);
+    const { prevPageUrl, nextPageUrl, perPage, groups, group, total, errors } = useSelector(state => state.adminGroups);
 
     useEffect(() => {
         (async () => await dispatch(getGroups(perPage)))();
@@ -106,33 +80,21 @@ function Index() {
             <TableRow key={group.id}>
                 <TableCell>{group.id}</TableCell>
                 <TableCell>{group.name}</TableCell>
+                <TableCell>{group.description?.substr(0, 30).trim().concat('...')}</TableCell>
                 <TableCell>
-                    {group.description
-                        ?.substr(0, 30)
-                        .trim()
-                        .concat("...")}
-                </TableCell>
-                <TableCell>
-                    <IconButton
-                        color="primary"
-                        onClick={e => openEditGroupModal(e, group.id)}
-                    >
+                    <IconButton color='primary' onClick={e => openEditGroupModal(e, group.id)}>
                         <EditIcon />
                     </IconButton>
-                    <IconButton
-                        color="primary"
-                        component={Link}
-                        to={`/admin/groups/${group.id}/permissions`}
-                    >
+                    {/* <IconButton color='primary' component={Link} to={`/admin/groups/${group.id}/permissions`}>
                         <GroupIcon />
-                    </IconButton>
+                    </IconButton> */}
                 </TableCell>
             </TableRow>
         ));
     } else {
         rows = (
             <TableRow>
-                <TableCell colSpan={3} align="center">
+                <TableCell colSpan={3} align='center'>
                     No Records!
                 </TableCell>
             </TableRow>
@@ -142,19 +104,12 @@ function Index() {
     return (
         <div>
             <Container>
-                <Typography
-                    variant="h3"
-                    component="h3"
-                    className={classes.heading}
-                >
+                <Typography variant='h3' component='h3' className={classes.heading}>
                     Manage Groups
                 </Typography>
                 <Paper className={classes.paper}>
                     <TableContainer>
-                        <Table
-                            className={classes.table}
-                            aria-label="simple table"
-                        >
+                        <Table className={classes.table} aria-label='simple table'>
                             <TableHead>
                                 <TableRow>
                                     <TableCell>ID</TableCell>
@@ -168,12 +123,12 @@ function Index() {
                     </TableContainer>
                     <TablePagination
                         rowsPerPageOptions={getDefaultPerPage(total)}
-                        component="div"
+                        component='div'
                         count={total}
                         rowsPerPage={rowsPerPage}
                         page={page}
-                        onChangePage={handleChangePage}
-                        onChangeRowsPerPage={handleChangeRowsPerPage}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
                         backIconButtonProps={{
                             onClick: handlePrevButtonClick
                         }}
@@ -183,25 +138,11 @@ function Index() {
                     />
                 </Paper>
             </Container>
-            <Fab
-                color="primary"
-                aria-label="add"
-                className={classes.fab}
-                onClick={() => setToggleCreateModal(true)}
-            >
+            <Fab color='primary' aria-label='add' className={classes.fab} onClick={() => setToggleCreateModal(true)}>
                 <AddIcon />
             </Fab>
-            <CreateModal
-                open={toggleCreateModal}
-                setOpen={setToggleCreateModal}
-                errors={errors}
-            />
-            <EditModal
-                open={toggleEditModal}
-                setOpen={setToggleEditModal}
-                errors={errors}
-                group={group}
-            />
+            <CreateModal open={toggleCreateModal} setOpen={setToggleCreateModal} errors={errors} />
+            <EditModal open={toggleEditModal} setOpen={setToggleEditModal} errors={errors} group={group} />
         </div>
     );
 }

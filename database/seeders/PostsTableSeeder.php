@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Category;
+use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class PostsTableSeeder extends Seeder
@@ -14,7 +15,11 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Post::class, 30)->create()->each(function ($post) {
+        /* factory(Post::class, 30)->create()->each(function ($post) {
+            $post->categories()->saveMany(Category::inRandomOrder()->take(5)->get());
+        }); */
+
+        Post::factory()->count(30)->for(function ($post) {
             $post->categories()->saveMany(Category::inRandomOrder()->take(5)->get());
         });
     }

@@ -1,26 +1,15 @@
 import {
-    Card,
-    CardContent,
-    Container,
-    FormControl,
-    Grid,
-    makeStyles,
-    TextField,
-    Typography,
-    Button,
-    MenuItem,
-    Input,
-    Select,
-    InputLabel,
-    Chip,
-    FormHelperText
+    Button, Card,
+    CardContent, Chip, Container,
+    FormControl, FormHelperText, Grid, Input, InputLabel, makeStyles, MenuItem, Select, TextField,
+    Typography
 } from "@material-ui/core";
+import CKEditor from "ckeditor4-react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import CKEditor from "ckeditor4-react";
+import { useHistory } from "react-router-dom";
 import { getCategoriesWithoutPagination } from "../../../actions/admin/categoryActions";
 import { addPost, clearErrors } from "../../../actions/admin/postActions";
-import { useHistory } from "react-router-dom";
 import { getFirstValidationError, hasValidationError } from "../../../helpers";
 
 const useStyles = makeStyles(theme => ({
@@ -123,7 +112,7 @@ function Create() {
                         <form onSubmit={handleSubmit}>
                             <Grid
                                 container
-                                justify="center"
+                                justifyContent="center"
                                 alignItems="center"
                                 spacing={2}
                             >

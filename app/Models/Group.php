@@ -3,10 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Group extends Model
 {
-    /** 
+    use HasFactory;
+
+    protected $table = 'groups';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -14,6 +19,7 @@ class Group extends Model
     protected $fillable = [
         'name',
         'description',
+        'status',
     ];
 
     /**

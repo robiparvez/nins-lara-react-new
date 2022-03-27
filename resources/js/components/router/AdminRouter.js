@@ -1,17 +1,17 @@
 import React from "react";
 import { Switch } from "react-router-dom";
 import AdminLogin from "../admin/auth/Login";
+import CategoryIndex from "../admin/categories/Index";
 import Dashboard from "../admin/Dashboard";
-import Route from "./Route";
+import GroupIndex from "../admin/groups/Index";
 import Layout from "../admin/layouts/App";
 import AuthLayout from "../admin/layouts/Auth";
-import GroupIndex from "../admin/groups/Index";
 import PermissionIndex from "../admin/permissions/Index";
-import CategoryIndex from "../admin/categories/Index";
-import PostIndex from "../admin/posts/Index";
 import PostCreate from "../admin/posts/Create";
 import PostEdit from "../admin/posts/Edit";
+import PostIndex from "../admin/posts/Index";
 import ProfileEdit from "../admin/profile/Edit";
+import Route from "./Route";
 
 /**
  * Router component for defining all the admin routes.

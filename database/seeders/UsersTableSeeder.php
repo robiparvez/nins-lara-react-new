@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Group;
-use App\User;
+use App\Models\User;
+use App\Models\Group;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
@@ -18,9 +17,10 @@ class UsersTableSeeder extends Seeder
     {
         $superAdmin = new User();
         $superAdmin->group_id = Group::where('name', 'Super Admin')->first()->id;
-        $superAdmin->first_name = 'admin';
-        $superAdmin->email = 'admin@admin.com';
-        $superAdmin->password = Hash::make('password123');
+        $superAdmin->first_name = 'parvez';
+        $superAdmin->last_name = 'robi';
+        $superAdmin->email = 'parvezrobi@yahoo.com';
+        $superAdmin->password = \Hash::make('12345678');
         $superAdmin->save();
     }
 }

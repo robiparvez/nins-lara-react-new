@@ -3,12 +3,8 @@
 namespace App\Http\Controllers\API\Admin;
 
 use App\Models\Post;
-use Exception;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Admin\CreatePostRequest;
 use App\Http\Requests\Admin\UpdatePostRequest;
 
@@ -16,7 +12,7 @@ class PostController extends Controller
 {
     /**
      * Create an instance of controller.
-     * 
+     *
      * @return void
      */
     public function __construct()
@@ -140,10 +136,10 @@ class PostController extends Controller
     private function createOrUpdatePost(Request $request, Post $post)
     {
         try {
-            DB::beginTransaction();
+            \DB::beginTransaction();
 
             $post->title = $request->title;
-            $post->slug = Str::slug($request->title);
+            $post->slug = \Str::slug($request->title);
             $post->content = $request->content;
 
             if ($request->hasFile('image')) {
@@ -157,13 +153,13 @@ class PostController extends Controller
 
             $post->categories()->sync($request->categories);
 
-            DB::commit();
+            \DB::commit();
 
             $post->load('categories', 'author');
 
             return $post;
-        } catch (Exception $ex) {
-            DB::rollBack();
+        } catch (\Exception $ex) {
+            \DB::rollBack();
             report($ex);
             return false;
         }

@@ -1,47 +1,32 @@
-import React, { useEffect, useState } from "react";
-import {
-    Typography,
-    makeStyles,
-    Container,
-    TableContainer,
-    Table,
-    TableHead,
-    TableBody,
-    TableRow,
-    TableCell,
-    Paper,
-    IconButton,
-    TablePagination,
-    Fab,
-    Chip
-} from "@material-ui/core";
-import { Edit as EditIcon, Add as AddIcon } from "@material-ui/icons";
-import { useDispatch, useSelector } from "react-redux";
-import { getDefaultPerPage, limitString } from "../../../helpers";
-import { Link } from "react-router-dom";
-import { getPosts } from "../../../actions/admin/postActions";
+import { Chip, Container, Fab, IconButton, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from '@material-ui/core';
+import { Add as AddIcon, Edit as EditIcon } from '@material-ui/icons';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { getPosts } from '../../../actions/admin/postActions';
+import { getDefaultPerPage, limitString } from '../../../helpers';
 
 const useStyles = makeStyles(theme => ({
     heading: {
-        textAlign: "center",
-        marginTop: "0.5rem",
-        marginBottom: "1rem",
-        color: "#424242"
+        textAlign: 'center',
+        marginTop: '0.5rem',
+        marginBottom: '1rem',
+        color: '#424242'
     },
     paper: {
-        width: "100%",
+        width: '100%',
         marginBottom: theme.spacing(2)
     },
     table: {},
     fab: {
-        position: "fixed",
+        position: 'fixed',
         bottom: theme.spacing(4),
         right: theme.spacing(4)
     },
     chips: {
-        display: "flex",
-        flexDirection: "column",
-        flexWrap: "wrap"
+        display: 'flex',
+        flexDirection: 'column',
+        flexWrap: 'wrap'
     },
     chip: {
         margin: 2
@@ -52,9 +37,7 @@ function Index() {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const { prevPageUrl, nextPageUrl, perPage, posts, total } = useSelector(
-        state => state.adminPosts
-    );
+    const { prevPageUrl, nextPageUrl, perPage, posts, total } = useSelector(state => state.adminPosts);
 
     useEffect(() => {
         (async () => await dispatch(getPosts(perPage)))();
@@ -95,11 +78,7 @@ function Index() {
                 <TableCell>
                     <div className={classes.chips}>
                         {post.categories?.map(category => (
-                            <Chip
-                                className={classes.chip}
-                                key={category.id}
-                                label={category.name}
-                            />
+                            <Chip className={classes.chip} key={category.id} label={category.name} />
                         ))}
                     </div>
                 </TableCell>
@@ -107,11 +86,7 @@ function Index() {
                     {post.author.first_name} {post.author.last_name}
                 </TableCell>
                 <TableCell>
-                    <IconButton
-                        color="primary"
-                        component={Link}
-                        to={`/admin/posts/${post.id}/edit`}
-                    >
+                    <IconButton color='primary' component={Link} to={`/admin/posts/${post.id}/edit`}>
                         <EditIcon />
                     </IconButton>
                 </TableCell>
@@ -120,7 +95,7 @@ function Index() {
     } else {
         rows = (
             <TableRow>
-                <TableCell colSpan={3} align="center">
+                <TableCell colSpan={3} align='center'>
                     No Records!
                 </TableCell>
             </TableRow>
@@ -130,19 +105,12 @@ function Index() {
     return (
         <div>
             <Container>
-                <Typography
-                    variant="h3"
-                    component="h3"
-                    className={classes.heading}
-                >
+                <Typography variant='h3' component='h3' className={classes.heading}>
                     Manage Posts
                 </Typography>
                 <Paper className={classes.paper}>
                     <TableContainer>
-                        <Table
-                            className={classes.table}
-                            aria-label="simple table"
-                        >
+                        <Table className={classes.table} aria-label='simple table'>
                             <TableHead>
                                 <TableRow>
                                     <TableCell>ID</TableCell>
@@ -157,12 +125,12 @@ function Index() {
                     </TableContainer>
                     <TablePagination
                         rowsPerPageOptions={getDefaultPerPage(total)}
-                        component="div"
+                        component='div'
                         count={total}
                         rowsPerPage={rowsPerPage}
                         page={page}
-                        onChangePage={handleChangePage}
-                        onChangeRowsPerPage={handleChangeRowsPerPage}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
                         backIconButtonProps={{
                             onClick: handlePrevButtonClick
                         }}
@@ -172,13 +140,7 @@ function Index() {
                     />
                 </Paper>
             </Container>
-            <Fab
-                color="primary"
-                aria-label="add"
-                className={classes.fab}
-                component={Link}
-                to={"/admin/posts/create"}
-            >
+            <Fab color='primary' aria-label='add' className={classes.fab} component={Link} to={'/admin/posts/create'}>
                 <AddIcon />
             </Fab>
         </div>

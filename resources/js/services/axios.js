@@ -1,13 +1,15 @@
 import Axios from "axios";
-import store from "../store";
-import { showToastMessage } from "../actions/toastMessageActions";
 import { logout as adminLogout } from "../actions/admin/authActions";
+import { showToastMessage } from "../actions/toastMessageActions";
+import store from "../store";
 
 const axios = Axios.create({
-    baseURL: process.env.MIX_API_URL
+    // baseURL: process.env.MIX_API_URL
+    baseURL: 'http://127.0.0.1:8000/api/'
 });
 
 const csrfToken = document.head.querySelector('meta[name="csrf-token"]');
+// console.log(csrfToken);
 
 if (csrfToken && csrfToken.getAttribute("content")) {
     axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken.getAttribute(

@@ -19,17 +19,14 @@ Route::namespace('Admin')->prefix('/admin')->group(function () {
         Route::post('/logout', 'LoginController@logout');
     });
 
-    Route::apiResource('/groups', 'GroupController')
-        ->except(['destroy']);
+    Route::apiResource('/groups', 'GroupController')->except(['destroy']);
 
     Route::get('/groups/{id}/permissions', 'PermissionController@index');
     Route::put('/groups/{id}/permissions', 'PermissionController@assignPermissionsToGroup');
 
-    Route::apiResource('categories', 'CategoryController')
-        ->except(['destroy']);
+    Route::apiResource('categories', 'CategoryController')->except(['destroy']);
 
-    Route::apiResource('posts', 'PostController')
-        ->except(['destroy']);
+    Route::apiResource('posts', 'PostController')->except(['destroy']);
 
     Route::get('/profile', 'ProfileController@show');
     Route::put('/profile', 'ProfileController@update');

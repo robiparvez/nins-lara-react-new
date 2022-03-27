@@ -16,13 +16,13 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('group_id');
+            $table->foreign('group_id')->references('id')->on('groups');
             $table->string('first_name', 50);
             $table->string('last_name', 50)->nullable();
             $table->string('email', 191);
             $table->string('password', 255);
             $table->timestamp('verified_at')->nullable();
             $table->timestamps();
-            $table->foreign('group_id')->references('id')->on('groups');
         });
     }
 

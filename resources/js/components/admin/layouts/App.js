@@ -1,19 +1,18 @@
-import React from "react";
-import Navbar from "../includes/Navbar";
-import { makeStyles } from "@material-ui/core";
-import Sidebar from "../includes/Sidebar";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getProfile } from "../../../actions/admin/profileActions";
+import { makeStyles } from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getProfile } from '../../../actions/admin/profileActions';
+import Navbar from '../includes/Navbar';
+import Sidebar from '../includes/Sidebar';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        display: "flex"
+        display: 'flex'
     },
     content: {
         flexGrow: 1,
         padding: theme.spacing(3),
-        marginTop: "64px"
+        marginTop: '64px'
     }
 }));
 

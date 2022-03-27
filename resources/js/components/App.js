@@ -1,13 +1,13 @@
+import { createTheme, MuiThemeProvider } from "@material-ui/core";
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 import store from "../store";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
-import Router from "./router/Router";
 import ToastMessage from "./includes/ToastMessage";
+import Router from "./router/Router";
 
-const theme = createMuiTheme({
+const theme = createTheme({
     typography: {
         fontFamily: "Montserrat, Arial"
     }

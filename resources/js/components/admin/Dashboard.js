@@ -1,5 +1,5 @@
-import React from "react";
-import Navbar from "./includes/Navbar";
+// import React from "react";
+// import Navbar from "./includes/Navbar";
 
 function Dashboard() {
     return (
